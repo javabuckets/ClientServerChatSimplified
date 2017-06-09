@@ -3,9 +3,7 @@ package com.thom.cc;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
@@ -14,22 +12,25 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+@SuppressWarnings("serial")
 public class ChatClient extends JFrame
 {		
-	private static final String IP = "127.0.0.1";
+	// Default Settings
+	private static final String IP = "127.0.0.1"; // Home pc
 	private static final int PORT = 5000;
 	
 	private JTextField output;
 	private PrintWriter pw;
 	private Socket socket;
 	
-	public ChatClient() 
+	// Joining Server
+	private JTextField connect_IP, connect_PORT;
+	
+	public ChatClient()
 	{
 		super("Chat Client");
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		drawScreen();
-		establishConnectionToChatServer(IP, PORT);
-		Thread thread = new ResponseThread(socket);
-		thread.start();
 	}
 	
 	private void drawScreen()
@@ -41,6 +42,18 @@ public class ChatClient extends JFrame
 		sendOutputBtn.addActionListener(new SendOutputListener());
 		panel.add(output);
 		panel.add(sendOutputBtn);
+		
+		// Joining Server
+		connect_IP = new JTextField(15);
+		connect_PORT = new JTextField(15);
+		connect_IP.setText(IP);
+		connect_PORT.setText(String.valueOf(PORT));
+		panel.add(connect_IP);
+		panel.add(connect_PORT);
+		JButton connectBtn = new JButton("Connect");
+		connectBtn.addActionListener(new EstablishConnection());
+		panel.add(connectBtn);
+		
 		getContentPane().add(BorderLayout.CENTER, panel);
 		setVisible(true);
 	}
@@ -60,6 +73,14 @@ public class ChatClient extends JFrame
 		}
 	}
 	
+	public class EstablishConnection implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e) 
+		{
+			establishConnectionToChatServer(connect_IP.getText(), Integer.valueOf(connect_PORT.getText()));
+		}	
+	}
+	
 	public class SendOutputListener implements ActionListener 
 	{
 		public void actionPerformed(ActionEvent arg0) 
@@ -68,6 +89,9 @@ public class ChatClient extends JFrame
 			{
 				pw.println(output.getText());
 				pw.flush();
+				
+				Thread thread = new ResponseThread(socket);
+				thread.start();
 			} 
 			catch (Exception e) 
 			{
