@@ -1,4 +1,4 @@
-package com.thom.cc;
+package com.thom.cc.server;
 
 import java.io.BufferedReader;
 import java.io.IOException;
