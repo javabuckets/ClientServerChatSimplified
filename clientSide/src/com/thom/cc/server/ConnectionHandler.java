@@ -3,6 +3,8 @@ package com.thom.cc.server;
 import java.io.IOException;
 import java.net.Socket;
 
+import com.thom.cc.ChatClient;
+
 public class ConnectionHandler 
 {
 	// Default Settings
@@ -17,6 +19,8 @@ public class ConnectionHandler
 		{
 			socket = new Socket(ip, port);
 			System.out.println("Connection established with " + ip + ":" + port);
+			ChatClient.isConnectedToServer = true;
+			ChatClient.connectedSocket = socket;
 			
 			return socket;
 		} 

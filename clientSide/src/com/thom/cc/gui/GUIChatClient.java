@@ -3,10 +3,15 @@ package com.thom.cc.gui;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.swing.*;
 
 import com.thom.cc.gui.action.LoginActionListener;
+import com.thom.cc.gui.action.RegisterActionListener;
+import com.thom.cc.packet.LoginPacket;
+import com.thom.cc.packet.RegisterPacket;
 import com.thom.cc.server.ConnectionHandler;
 import com.thom.cc.utility.GuiUtil;
 
@@ -23,6 +28,7 @@ public class GUIChatClient extends JFrame
 	{
 		super("Chat Client");
 		drawScreen(WIDTH, HEIGHT);
+		attemptAutoConnect();
 	}
 	
 	/**
@@ -60,8 +66,10 @@ public class GUIChatClient extends JFrame
 		username = GuiUtil.addTextField(panel, "username", new Point(25, 25), 150, 20);
 		password = GuiUtil.addTextField(panel, "password", new Point(25, 50), 150, 20);
 		
-		login = GuiUtil.addButton(panel, "Login", new Point(180, 25), 100, 20, new LoginActionListener(username.getText(), password.getText()));
-		register = GuiUtil.addButton(panel, "Register", new Point(180, 50), 100, 20, null);
+		login = GuiUtil.addButton(panel, "Login", new Point(180, 25), 100, 20, new LoginActionListener(
+				new LoginPacket(username, password)));
+		register = GuiUtil.addButton(panel, "Register", new Point(180, 50), 100, 20, new RegisterActionListener(
+				new RegisterPacket(username, password)));
 	}
 
 	private void drawMenuBar() 
@@ -101,5 +109,10 @@ public class GUIChatClient extends JFrame
 	private void drawChatWindow() 
 	{
 		
+	}
+	
+	private void attemptAutoConnect()
+	{
+		ConnectionHandler.establishConnectionToServer(ConnectionHandler.getStdIp(), ConnectionHandler.getStdPort());
 	}
 }

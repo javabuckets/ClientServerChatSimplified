@@ -105,9 +105,8 @@ public class ChatClientOld extends JFrame
 		}
 	}
 	
-	public static void main(String[] args) 
+	/*public static void main(String[] args) 
 	{
-//		new ChatClient();
-		new GUIChatClient();
-	}
+		new ChatClient();
+	}*/
 }

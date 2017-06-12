@@ -7,10 +7,10 @@ import com.thom.cc.utility.PacketReference;
 
 public class MessagePacket extends Packet
 {
-	Account sender;
-	Account receiver;
-	String message;
-	Date dateTime;
+	private Account sender;
+	private Account receiver;
+	private String message;
+	private Date dateTime;
 	
 	public MessagePacket(Account sender, Account receiver, String message, Date dateTime) 
 	{
