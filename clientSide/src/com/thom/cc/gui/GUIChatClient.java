@@ -113,6 +113,7 @@ public class GUIChatClient extends JFrame
 	
 	private void attemptAutoConnect()
 	{
+		System.out.println("Attempting to auto-connect to server...");
 		ConnectionHandler.establishConnectionToServer(ConnectionHandler.getStdIp(), ConnectionHandler.getStdPort());
 	}
 }

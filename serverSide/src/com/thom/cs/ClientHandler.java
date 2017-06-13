@@ -5,6 +5,8 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+import com.thom.cs.data.DataHandler;
+
 public class ClientHandler implements Runnable 
 {
 	private Server server;
@@ -37,26 +39,12 @@ public class ClientHandler implements Runnable
 			while ((msg = reader.readLine()) != null)
 			{
 				System.out.println(msg);
-				tellClient(msg);
+				DataHandler.handle(msg, socket);
 			}
 		} 
 		catch (Exception e) 
 		{
 			System.err.println("Lost connection with client: " + socket.toString());
-		}
-	}
-	
-	private void tellClient(String msg)
-	{
-		try 
-		{
-			PrintWriter pw = new PrintWriter(socket.getOutputStream());
-			pw.println(msg);
-			pw.flush();
-		} 
-		catch (Exception e) 
-		{
-			e.printStackTrace();
 		}
 	}
 }
