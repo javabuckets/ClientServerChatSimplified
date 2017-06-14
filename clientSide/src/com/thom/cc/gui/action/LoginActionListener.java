@@ -4,12 +4,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 
 import com.thom.cc.ChatClient;
 import com.thom.cc.packet.LoginPacket;
 import com.thom.cc.server.ResponseThread;
-import com.thom.cc.utility.DateUtil;
+import com.thom.cc.utility.PasswordEncrypter;
 
 public class LoginActionListener implements ActionListener
 {
@@ -33,19 +34,20 @@ public class LoginActionListener implements ActionListener
 			Thread thread = new ResponseThread(ChatClient.connectedSocket);
 			thread.start();
 		} 
-		catch (IOException ex) 
+		catch (IOException | NoSuchAlgorithmException ex) 
 		{
 			ex.printStackTrace();
 		}
 	}
 	
-	private void sendLoginPacket()
+	private void sendLoginPacket() throws NoSuchAlgorithmException, UnsupportedEncodingException
 	{
 		int packetID = loginPacket.getPacketType();
+		PasswordEncrypter passwordEncrypter = new PasswordEncrypter();
 		
 		String id = "#PacketID:" + packetID + ";";
 		String user = "USER:" + loginPacket.getUsername().getText() + ";";
-		String pass = "PASS:" + loginPacket.getPassword().getText() + ";";
+		String pass = "PASS:" + passwordEncrypter.getEncryptedPassword(loginPacket.getPassword().getText()) + ";";
 		
 		String data = id + user + pass + "#END";
 		

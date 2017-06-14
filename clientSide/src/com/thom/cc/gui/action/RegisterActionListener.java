@@ -4,10 +4,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 
 import com.thom.cc.ChatClient;
 import com.thom.cc.packet.RegisterPacket;
 import com.thom.cc.server.ResponseThread;
+import com.thom.cc.utility.PasswordEncrypter;
 
 public class RegisterActionListener implements ActionListener
 {
@@ -22,7 +25,7 @@ public class RegisterActionListener implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
-		try 
+		try
 		{
 			pw = new PrintWriter(ChatClient.connectedSocket.getOutputStream());
 			sendRegisterPacket();
@@ -31,19 +34,20 @@ public class RegisterActionListener implements ActionListener
 			Thread thread = new ResponseThread(ChatClient.connectedSocket);
 			thread.start();
 		} 
-		catch (IOException ex) 
+		catch (IOException | NoSuchAlgorithmException ex) 
 		{
 			ex.printStackTrace();
 		}
 	}
 	
-	private void sendRegisterPacket()
+	private void sendRegisterPacket() throws NoSuchAlgorithmException, UnsupportedEncodingException
 	{
 		int packetID = registerPacket.getPacketType();
+		PasswordEncrypter passwordEncrypter = new PasswordEncrypter();
 		
 		String id = "#PacketID:" + packetID + ";";
 		String user = "USER:" + registerPacket.getUsername().getText() + ";";
-		String pass = "PASS:" + registerPacket.getPassword().getText() + ";";
+		String pass = "PASS:" + passwordEncrypter.getEncryptedPassword(registerPacket.getPassword().getText()) + ";";
 		
 		String data = id + user + pass + "#END";
 		

@@ -8,7 +8,7 @@ import com.thom.cs.util.ClientUtil;
 public class LoginPacketHandler 
 {
 	public static void handle(LoginPacket packet, Socket client)
-	{			
+	{	
 		if (RegisterPacketHandler.userDatabase.usernames.contains(packet.getUsername()))
 		{
 			// The index of the username in the usernames list

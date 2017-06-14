@@ -3,10 +3,13 @@ package com.thom.cc.gui;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
-import java.util.Calendar;
-import java.util.Date;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import com.thom.cc.gui.action.LoginActionListener;
 import com.thom.cc.gui.action.RegisterActionListener;
