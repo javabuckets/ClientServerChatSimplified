@@ -8,6 +8,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 
 import com.thom.cc.ChatClient;
+import com.thom.cc.gui.GUIPopUp;
 import com.thom.cc.packet.RegisterPacket;
 import com.thom.cc.server.ResponseThread;
 import com.thom.cc.utility.PasswordEncrypter;
@@ -29,13 +30,15 @@ public class RegisterActionListener implements ActionListener
 		{
 			pw = new PrintWriter(ChatClient.connectedSocket.getOutputStream());
 			sendRegisterPacket();
+			GUIPopUp popUp = new GUIPopUp("Account Registered.", 1500);
 			pw.flush();
 			
 			Thread thread = new ResponseThread(ChatClient.connectedSocket);
 			thread.start();
 		} 
-		catch (IOException | NoSuchAlgorithmException ex) 
+		catch (Exception ex) 
 		{
+			GUIPopUp popUp = new GUIPopUp("Account Creation Failed.", 1500);
 			ex.printStackTrace();
 		}
 	}

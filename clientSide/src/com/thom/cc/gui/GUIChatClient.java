@@ -1,11 +1,13 @@
 package com.thom.cc.gui;
 
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
@@ -16,21 +18,19 @@ import com.thom.cc.gui.action.RegisterActionListener;
 import com.thom.cc.packet.LoginPacket;
 import com.thom.cc.packet.RegisterPacket;
 import com.thom.cc.server.ConnectionHandler;
+import com.thom.cc.utility.ColorReference;
+import com.thom.cc.utility.FontReference;
 import com.thom.cc.utility.GuiUtil;
 
-public class GUIChatClient extends JFrame
+public class GUIChatClient extends GUIScreen
 {
-	// local screen width & height
-	private static final int WIDTH = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
-	private static final int HEIGHT = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
-	
 	// JPanel where all components will be added to
 	private JPanel panel;
 	
 	public GUIChatClient() 
 	{
 		super("Chat Client");
-		drawScreen(WIDTH, HEIGHT);
+		drawScreen();
 		attemptAutoConnect();
 	}
 	
@@ -39,40 +39,25 @@ public class GUIChatClient extends JFrame
 	 * @param width the width of the screen
 	 * @param height the height of the screen
 	 */
-	private void drawScreen(int width, int height)
+	@Override
+	public void drawScreen()
 	{
-		setSize(width, height);
+		setSize(WIDTH, HEIGHT);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		
 		// --- GUI Layout ---
 		panel = new JPanel(null);
-		panel.setBounds(0, 0, 20, height);
+		panel.setBounds(0, 0, WIDTH, HEIGHT);
 
-		// Draw Components
+		// Draws the login screen on boot
 		drawMenuBar();
-		drawTempUI(width, height);
-//		drawUserpage();
-//		drawContacts();
-//		drawChatWindow();
+		drawLoginScreen();
 		
 		add(panel);
 		setVisible(true);
-	}
-
-	JTextField username, password;
-	JButton login, register;
-	
-	private void drawTempUI(int width, int height) 
-	{
-		// Login Screen
-		username = GuiUtil.addTextField(panel, "username", new Point(25, 25), 150, 20);
-		password = GuiUtil.addTextField(panel, "password", new Point(25, 50), 150, 20);
 		
-		login = GuiUtil.addButton(panel, "Login", new Point(180, 25), 100, 20, new LoginActionListener(
-				new LoginPacket(username, password)));
-		register = GuiUtil.addButton(panel, "Register", new Point(180, 50), 100, 20, new RegisterActionListener(
-				new RegisterPacket(username, password)));
+		panel.setBackground(ColorReference.bgColor);
 	}
 
 	private void drawMenuBar() 
@@ -99,6 +84,27 @@ public class GUIChatClient extends JFrame
 		setJMenuBar(menubar);
 	}
 
+	// GUI Components for Login Screen
+	private JTextField username, password;
+	private JButton login, register;
+	
+	private void drawLoginScreen()
+	{
+		GuiUtil.addFilledPane(new JLabel(), panel, new Rectangle(WIDTH/2 - 500, HEIGHT/2 - HEIGHT/4, 1000, HEIGHT/2), ColorReference.userpageColor);
+		
+		GuiUtil.addTitleLabel(new JLabel(), panel, "Chat Client", new Point(WIDTH/2 - 180, HEIGHT/2 - HEIGHT/4 + 20), FontReference.titleFont);
+	
+		GuiUtil.addLabel(new JLabel(), panel, "username", new Point(WIDTH/2 - 380, HEIGHT/2 - 80), FontReference.defaultFont);
+		GuiUtil.addLabel(new JLabel(), panel, "password", new Point(WIDTH/2 - 380, HEIGHT/2 + 20), FontReference.defaultFont);
+		GuiUtil.addLabel(new JLabel(), panel, "Don't have an account?", new Point(WIDTH/2 + 55, HEIGHT/2 + 15), FontReference.defaultFont);
+		
+		username = GuiUtil.addTextField(panel, "", new Point(WIDTH/2 - 380, HEIGHT/2 - 50), 300, 30, FontReference.defaultFont);
+		password = GuiUtil.addPasswordField(panel, new Point(WIDTH/2 - 380, HEIGHT/2 + 50), 300, 30, FontReference.defaultFont);
+		
+		GuiUtil.addButton(panel, "Login", new Point(WIDTH/2 + 70, HEIGHT/2 - 55), 175, 40, new LoginActionListener(new LoginPacket(username, password)));
+		GuiUtil.addButton(panel, "Register", new Point(WIDTH/2 + 70, HEIGHT/2 + 45), 175, 40, new RegisterActionListener(new RegisterPacket(username, password)));
+	}
+	
 	private void drawUserpage() 
 	{
 		

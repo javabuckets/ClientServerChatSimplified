@@ -2,12 +2,12 @@ package com.thom.cc.gui.action;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 
 import com.thom.cc.ChatClient;
+import com.thom.cc.gui.GUIPopUp;
 import com.thom.cc.packet.LoginPacket;
 import com.thom.cc.server.ResponseThread;
 import com.thom.cc.utility.PasswordEncrypter;
@@ -33,9 +33,10 @@ public class LoginActionListener implements ActionListener
 			
 			Thread thread = new ResponseThread(ChatClient.connectedSocket);
 			thread.start();
-		} 
-		catch (IOException | NoSuchAlgorithmException ex) 
+		}
+		catch (Exception ex)
 		{
+			GUIPopUp popUp = new GUIPopUp("Login Failed.", 1500);
 			ex.printStackTrace();
 		}
 	}

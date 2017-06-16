@@ -1,5 +1,7 @@
 package com.thom.cc.gui;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Point;
 
 import javax.swing.JButton;
@@ -10,7 +12,7 @@ import javax.swing.JTextField;
 import com.thom.cc.server.ConnectionHandler;
 import com.thom.cc.utility.GuiUtil;
 
-public class GUIServerConnector extends JFrame
+public class GUIServerConnector extends GUIScreen
 {
 	public GUIServerConnector() 
 	{
@@ -24,15 +26,18 @@ public class GUIServerConnector extends JFrame
 	private JTextField connect_IP, connect_PORT;
 	private JButton connect, autoconnect;
 	
-	private void drawScreen() 
+	private Color bgColor = new Color(54, 57, 62);
+	
+	@Override
+	public void drawScreen() 
 	{
 		setSize(200, 120);
 		setResizable(false);
 		
 		panel = new JPanel(null);
 		
-		connect_IP = GuiUtil.addTextField(panel, "IP", new Point(5, 5), 120, 20);
-		connect_PORT = GuiUtil.addTextField(panel, "PORT", new Point(125, 5), 65, 20);
+		connect_IP = GuiUtil.addTextField(panel, "IP", new Point(5, 5), 120, 20, Font.getFont("Arial"));
+		connect_PORT = GuiUtil.addTextField(panel, "PORT", new Point(125, 5), 65, 20, Font.getFont("Arial"));
 		
 		connect = GuiUtil.addButton(panel, "Connect", new Point((200/2-50), 30), 100, 20, (ActionEvent) -> 
 		{ 
@@ -50,5 +55,7 @@ public class GUIServerConnector extends JFrame
 		
 		this.add(panel);
 		this.setVisible(true);
+		
+		panel.setBackground(bgColor);
 	}
 }
