@@ -4,6 +4,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
+import com.thom.cs.database.DataBaseHandler;
+
 public class Server
 {
 	private static final int PORT = 5000;
@@ -13,6 +15,7 @@ public class Server
 	public void initializeServer(int port)
 	{
 		clientsConnected = new ArrayList<Socket>();
+		DataBaseHandler.initDatabases();
 
 		try 
 		{

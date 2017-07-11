@@ -4,6 +4,8 @@ import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 
+import com.thom.cc.gui.util.ImageHandler;
+
 public abstract class GUIScreen extends JFrame
 {
 	// local screen width & height
@@ -13,6 +15,7 @@ public abstract class GUIScreen extends JFrame
 	public GUIScreen(String title)
 	{
 		super(title);
+		setIconImage(ImageHandler.getImage("./res/cc_logo.png"));
 	}
 	
 	public abstract void drawScreen();
