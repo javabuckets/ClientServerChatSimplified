@@ -20,7 +20,7 @@ public class ConnectionHandler
 			socket = new Socket(ip, port);
 			System.out.println("Connection established with " + ip + ":" + port);
 			ChatClient.isConnectedToServer = true;
-			ChatClient.connectedSocket = socket;
+			ChatClient.SERVER_SOCKET = socket;
 			
 			return socket;
 		} 

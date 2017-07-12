@@ -27,10 +27,16 @@ public class ResponseThread extends Thread
 		try 
 		{
 			System.out.println(reader.readLine());
+			handleServerCommand(reader.readLine());
 		} 
 		catch (IOException e1) 
 		{
 			e1.printStackTrace();
 		}
+	}
+
+	private void handleServerCommand(String readLine) 
+	{
+		
 	}
 }

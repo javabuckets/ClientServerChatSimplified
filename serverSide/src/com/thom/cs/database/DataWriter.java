@@ -1,6 +1,10 @@
 package com.thom.cs.database;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.util.List;
 
 public class DataWriter 
 {
@@ -13,6 +17,7 @@ public class DataWriter
 	public void createDatabaseDirectory(String directoryName)
 	{
 		new File("./dbs/" + directoryName).mkdir();
+		System.out.println("Directory created at: ./dbs/" + directoryName);
 	}
 	
 	/**
@@ -23,15 +28,33 @@ public class DataWriter
 	public void createDirectory(String pathName, String directoryName)
 	{
 		new File(pathName + "/" + directoryName).mkdir();
+		System.out.println("Directory created at: " + pathName + "/" + directoryName);
 	}
 	
 	/**
 	 * Creates an empty file at the specified directory.
 	 * @param filename The name of the file to create
 	 * @param directory The path for the datafile to be created
+	 * @throws IOException 
 	 */
-	public void createDatafile(String filename, String directory)
+	public void createDatafile(String filename, String directory) throws IOException
 	{
-		new File("./dbs/" + directory + "/" + filename);
+		File datafile = new File("./dbs/" + directory + "/" + filename);
+		
+		FileWriter fw = new FileWriter(datafile);
+		fw.write("@CC-dbs\n");
+		fw.close();
+		
+		System.out.println("Datafile created at: ./dbs/" + directory + "/" + filename);
+	}
+	
+	public void writeLine(String filepath, String text) throws IOException
+	{
+		File file = new File(filepath);
+		List<String> lines = dr.getFileContents(file);
+		
+		lines.add(text);
+		
+		Files.write(file.toPath(), lines);
 	}
 }

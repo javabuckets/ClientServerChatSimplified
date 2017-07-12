@@ -27,11 +27,11 @@ public class LoginActionListener implements ActionListener
 	{
 		try 
 		{
-			pw = new PrintWriter(ChatClient.connectedSocket.getOutputStream());
+			pw = new PrintWriter(ChatClient.SERVER_SOCKET.getOutputStream());
 			sendLoginPacket();
 			pw.flush();
 			
-			Thread thread = new ResponseThread(ChatClient.connectedSocket);
+			Thread thread = new ResponseThread(ChatClient.SERVER_SOCKET);
 			thread.start();
 		}
 		catch (Exception ex)

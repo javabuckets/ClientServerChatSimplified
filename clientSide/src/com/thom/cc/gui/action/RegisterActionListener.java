@@ -28,12 +28,12 @@ public class RegisterActionListener implements ActionListener
 	{
 		try
 		{
-			pw = new PrintWriter(ChatClient.connectedSocket.getOutputStream());
+			pw = new PrintWriter(ChatClient.SERVER_SOCKET.getOutputStream());
 			sendRegisterPacket();
 			GUIPopUp popUp = new GUIPopUp("Account Registered.", 1500);
 			pw.flush();
 			
-			Thread thread = new ResponseThread(ChatClient.connectedSocket);
+			Thread thread = new ResponseThread(ChatClient.SERVER_SOCKET);
 			thread.start();
 		} 
 		catch (Exception ex) 
