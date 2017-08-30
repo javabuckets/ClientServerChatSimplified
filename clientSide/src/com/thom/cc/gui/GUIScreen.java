@@ -15,7 +15,7 @@ public abstract class GUIScreen extends JFrame
 	public GUIScreen(String title)
 	{
 		super(title);
-		setIconImage(ImageHandler.getImage("./res/cc_logo.png"));
+		setIconImage(ImageHandler.getImage("./res/logo.png"));
 	}
 	
 	public abstract void drawScreen();

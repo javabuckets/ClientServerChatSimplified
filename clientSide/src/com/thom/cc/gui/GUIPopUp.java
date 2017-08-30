@@ -8,9 +8,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
+import com.thom.cc.gui.util.GuiUtil;
 import com.thom.cc.utility.ColorReference;
 import com.thom.cc.utility.FontReference;
-import com.thom.cc.utility.GuiUtil;
 
 public class GUIPopUp extends GUIScreen
 {

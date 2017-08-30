@@ -9,8 +9,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import com.thom.cc.gui.util.GuiUtil;
 import com.thom.cc.server.ConnectionHandler;
-import com.thom.cc.utility.GuiUtil;
 
 public class GUIServerConnector extends GUIScreen
 {

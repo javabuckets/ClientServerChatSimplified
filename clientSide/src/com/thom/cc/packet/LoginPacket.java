@@ -2,8 +2,6 @@ package com.thom.cc.packet;
 
 import javax.swing.JTextField;
 
-import com.thom.cc.utility.PacketReference;
-
 public class LoginPacket extends Packet
 {
 	private JTextField username, password;

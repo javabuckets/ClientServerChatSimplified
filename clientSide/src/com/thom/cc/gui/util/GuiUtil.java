@@ -1,4 +1,4 @@
-package com.thom.cc.utility;
+package com.thom.cc.gui.util;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -8,6 +8,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
+
+import com.thom.cc.utility.ColorReference;
 
 public class GuiUtil 
 {

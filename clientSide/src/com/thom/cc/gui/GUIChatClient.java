@@ -2,7 +2,6 @@ package com.thom.cc.gui;
 
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 
 import javax.swing.JButton;
@@ -15,17 +14,17 @@ import javax.swing.JTextField;
 
 import com.thom.cc.gui.action.LoginActionListener;
 import com.thom.cc.gui.action.RegisterActionListener;
+import com.thom.cc.gui.util.GuiUtil;
 import com.thom.cc.packet.LoginPacket;
 import com.thom.cc.packet.RegisterPacket;
 import com.thom.cc.server.ConnectionHandler;
 import com.thom.cc.utility.ColorReference;
 import com.thom.cc.utility.FontReference;
-import com.thom.cc.utility.GuiUtil;
 
 public class GUIChatClient extends GUIScreen
 {
 	// JPanel where all components will be added to
-	private JPanel panel;
+	public static JPanel panel;
 	
 	public GUIChatClient() 
 	{
@@ -85,37 +84,38 @@ public class GUIChatClient extends GUIScreen
 	}
 
 	// GUI Components for Login Screen
-	private JTextField username, password;
-	private JButton login, register;
+	public static JTextField username, password;
+	public static JButton login, register;
+	public static JLabel loginPanel, loginLbl0, loginLbl1, loginLbl2, loginLbl3;
 	
-	private void drawLoginScreen()
+	public static void drawLoginScreen()
 	{
-		GuiUtil.addFilledPane(new JLabel(), panel, new Rectangle(WIDTH/2 - 500, HEIGHT/2 - HEIGHT/4, 1000, HEIGHT/2), ColorReference.userpageColor);
+		loginPanel = GuiUtil.addFilledPane(loginPanel, panel, new Rectangle(WIDTH/2 - 500, HEIGHT/2 - HEIGHT/4, 1000, HEIGHT/2), ColorReference.userpageColor);
 		
-		GuiUtil.addTitleLabel(new JLabel(), panel, "Chat Client", new Point(WIDTH/2 - 180, HEIGHT/2 - HEIGHT/4 + 20), FontReference.titleFont);
+		loginLbl0 = GuiUtil.addTitleLabel(loginLbl0, panel, "Chat Client", new Point(WIDTH/2 - 180, HEIGHT/2 - HEIGHT/4 + 20), FontReference.titleFont);
 	
-		GuiUtil.addLabel(new JLabel(), panel, "username", new Point(WIDTH/2 - 380, HEIGHT/2 - 80), FontReference.defaultFont);
-		GuiUtil.addLabel(new JLabel(), panel, "password", new Point(WIDTH/2 - 380, HEIGHT/2 + 20), FontReference.defaultFont);
-		GuiUtil.addLabel(new JLabel(), panel, "Don't have an account?", new Point(WIDTH/2 + 55, HEIGHT/2 + 15), FontReference.defaultFont);
+		loginLbl1 = GuiUtil.addLabel(loginLbl1, panel, "username", new Point(WIDTH/2 - 380, HEIGHT/2 - 80), FontReference.defaultFont);
+		loginLbl2 = GuiUtil.addLabel(loginLbl2, panel, "password", new Point(WIDTH/2 - 380, HEIGHT/2 + 20), FontReference.defaultFont);
+		loginLbl3 = GuiUtil.addLabel(loginLbl3, panel, "Don't have an account?", new Point(WIDTH/2 + 55, HEIGHT/2 + 15), FontReference.defaultFont);
 		
 		username = GuiUtil.addTextField(panel, "", new Point(WIDTH/2 - 380, HEIGHT/2 - 50), 300, 30, FontReference.defaultFont);
 		password = GuiUtil.addPasswordField(panel, new Point(WIDTH/2 - 380, HEIGHT/2 + 50), 300, 30, FontReference.defaultFont);
 		
-		GuiUtil.addButton(panel, "Login", new Point(WIDTH/2 + 70, HEIGHT/2 - 55), 175, 40, new LoginActionListener(new LoginPacket(username, password)));
-		GuiUtil.addButton(panel, "Register", new Point(WIDTH/2 + 70, HEIGHT/2 + 45), 175, 40, new RegisterActionListener(new RegisterPacket(username, password)));
+		login = GuiUtil.addButton(panel, "Login", new Point(WIDTH/2 + 70, HEIGHT/2 - 55), 175, 40, new LoginActionListener(new LoginPacket(username, password)));
+		register = GuiUtil.addButton(panel, "Register", new Point(WIDTH/2 + 70, HEIGHT/2 + 45), 175, 40, new RegisterActionListener(new RegisterPacket(username, password)));
 	}
 	
-	private void drawUserpage() 
+	public static void drawHomepage() 
+	{
+		System.out.println("To Homepage...");
+	}
+	
+	public static void drawContacts() 
 	{
 		
 	}
 	
-	private void drawContacts() 
-	{
-		
-	}
-	
-	private void drawChatWindow() 
+	public static void drawChatWindow() 
 	{
 		
 	}

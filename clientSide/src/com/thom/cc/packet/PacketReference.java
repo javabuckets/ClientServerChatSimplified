@@ -1,9 +1,10 @@
-package com.thom.cc.utility;
+package com.thom.cc.packet;
 
 public class PacketReference 
 {
 	public static final int LOGIN_PACKET = 500;
 	public static final int REGISTER_PACKET = 501;
+	public static final int USERLOGINRESPONSE_PACKET = 502;
 	
 	public static final int MESSAGE_PACKET = 600;
 	

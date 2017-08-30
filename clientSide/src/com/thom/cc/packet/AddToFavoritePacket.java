@@ -3,7 +3,6 @@ package com.thom.cc.packet;
 import java.util.Date;
 
 import com.thom.cc.account.Account;
-import com.thom.cc.utility.PacketReference;
 
 public class AddToFavoritePacket extends Packet
 {

@@ -5,14 +5,19 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
 
+import com.thom.cc.data.DataHandler;
+
 public class ResponseThread extends Thread
 {
 	BufferedReader reader;
+	Socket serverSocket;
 
 	public ResponseThread(Socket socket) 
 	{
 		try 
 		{
+			serverSocket = socket;
+			
 			InputStreamReader isr = new InputStreamReader(socket.getInputStream());
 			reader = new BufferedReader(isr);
 		} 
@@ -26,8 +31,7 @@ public class ResponseThread extends Thread
 	{
 		try 
 		{
-			System.out.println(reader.readLine());
-			handleServerCommand(reader.readLine());
+			handleServerCommand(reader.readLine(), serverSocket);
 		} 
 		catch (IOException e1) 
 		{
@@ -35,8 +39,8 @@ public class ResponseThread extends Thread
 		}
 	}
 
-	private void handleServerCommand(String readLine) 
+	private void handleServerCommand(String str, Socket serverSocket) 
 	{
-		
+		DataHandler.handle(str, serverSocket);
 	}
 }

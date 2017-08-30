@@ -8,7 +8,7 @@ import com.thom.cc.ChatClient;
 public class ConnectionHandler 
 {
 	// Default Settings
-	private static final String IP = "127.0.0.1";
+	private static final String IP = "192.168.1.79";
 	private static final int PORT = 5000;
 	
 	public static Socket establishConnectionToServer(String ip, int port)
@@ -24,7 +24,7 @@ public class ConnectionHandler
 			
 			return socket;
 		} 
-		catch (IOException e) 
+		catch (IOException e)
 		{
 			System.err.println("Failed to connect to " + ip + ":" + port);
 		}
