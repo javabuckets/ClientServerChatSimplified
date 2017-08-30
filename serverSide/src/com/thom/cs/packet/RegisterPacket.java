@@ -4,9 +4,9 @@ public class RegisterPacket extends Packet
 {
 	private String username, password;
 	
-	public RegisterPacket(int packetType,String username, String password) 
+	public RegisterPacket(String username, String password) 
 	{
-		super(packetType);
+		super(PacketReference.REGISTER_PACKET);
 		this.username = username;
 		this.password = password;
 	}

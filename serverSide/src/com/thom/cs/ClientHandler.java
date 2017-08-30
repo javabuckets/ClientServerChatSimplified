@@ -38,7 +38,6 @@ public class ClientHandler implements Runnable
 		{
 			while ((msg = reader.readLine()) != null)
 			{
-				System.out.println(msg);
 				DataHandler.handle(msg, socket);
 			}
 		} 

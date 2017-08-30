@@ -1,10 +1,11 @@
-package com.thom.cs.packet;
+package com.thom.cs.packet.handler;
 
 import java.net.Socket;
 import java.util.ArrayList;
 
-import com.thom.cs.packet.handler.LoginPacketHandler;
-import com.thom.cs.packet.handler.RegisterPacketHandler;
+import com.thom.cs.packet.LoginPacket;
+import com.thom.cs.packet.PacketReference;
+import com.thom.cs.packet.RegisterPacket;
 
 public class PacketHandler 
 {
@@ -15,11 +16,11 @@ public class PacketHandler
 		switch (packetId) 
 		{
 		case PacketReference.LOGIN_PACKET:
-			LoginPacket loginPacket = new LoginPacket(packetId, retrieveDataset(1, packetData), retrieveDataset(2, packetData));
+			LoginPacket loginPacket = new LoginPacket(retrieveDataset(1, packetData), retrieveDataset(2, packetData));
 			LoginPacketHandler.handle(loginPacket, client);
 			break;
 		case PacketReference.REGISTER_PACKET:
-			RegisterPacket registerPacket = new RegisterPacket(packetId, retrieveDataset(1, packetData), retrieveDataset(2, packetData));
+			RegisterPacket registerPacket = new RegisterPacket(retrieveDataset(1, packetData), retrieveDataset(2, packetData));
 			RegisterPacketHandler.handle(registerPacket, client);
 			break;
 		default:

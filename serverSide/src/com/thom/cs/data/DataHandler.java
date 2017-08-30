@@ -2,7 +2,7 @@ package com.thom.cs.data;
 
 import java.net.Socket;
 
-import com.thom.cs.packet.PacketHandler;
+import com.thom.cs.packet.handler.PacketHandler;
 
 public class DataHandler 
 {
@@ -11,6 +11,8 @@ public class DataHandler
 		if (data.startsWith("#Packet"))
 		{
 			System.out.println("Received packet from client: " + client.toString());
+			System.out.println(data);
+			
 			PacketHandler.handle(data, client);
 		}
 	}

@@ -4,9 +4,9 @@ public class LoginPacket extends Packet
 {
 	private String username, password;
 	
-	public LoginPacket(int packetType,String username, String password) 
+	public LoginPacket(String username, String password) 
 	{
-		super(packetType);
+		super(PacketReference.LOGIN_PACKET);
 		this.username = username;
 		this.password = password;
 	}
