@@ -12,7 +12,7 @@ public abstract class GUIScreen extends JFrame {
 
     public GUIScreen(String title) {
         super(title);
-        setIconImage(ImageHandler.getImage("./resources/logo.png"));
+        setIconImage(ImageHandler.getImage("./src/main/resources/logo.png"));
     }
 
     public abstract void drawScreen();

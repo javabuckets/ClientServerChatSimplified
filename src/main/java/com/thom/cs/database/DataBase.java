@@ -1,19 +1,12 @@
 package com.thom.cs.database;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
 public abstract class DataBase {
-    public String pathname;
-
-    public DataBase() {
-
-    }
+    private String pathname;
 
     public abstract void updateData();
-
-    public void setPathname(String pathname) {
-        this.pathname = pathname;
-    }
-
-    public String getPathname() {
-        return pathname;
-    }
 }

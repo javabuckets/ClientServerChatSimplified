@@ -1,11 +1,13 @@
 package com.thom.cc.gui.action;
 
 import com.thom.cc.ChatClient;
+import com.thom.cc.account.Account;
 import com.thom.cc.gui.GUIPopUp;
 import com.thom.cc.packet.LoginPacket;
 import com.thom.cc.server.ResponseThread;
 import com.thom.cc.utility.PasswordEncrypter;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.PrintWriter;
@@ -15,14 +17,17 @@ import java.security.NoSuchAlgorithmException;
 public class LoginActionListener implements ActionListener {
     private PrintWriter pw;
     private LoginPacket loginPacket;
+    private JTextField username, password;
 
-    public LoginActionListener(LoginPacket loginPacket) {
-        this.loginPacket = loginPacket;
+    public LoginActionListener(JTextField username, JTextField password) {
+        this.username = username;
+        this.password = password;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         try {
+            this.loginPacket = new LoginPacket(new Account(username.getText(), password.getText()));
             pw = new PrintWriter(ChatClient.SERVER_SOCKET.getOutputStream());
             sendLoginPacket();
             pw.flush();

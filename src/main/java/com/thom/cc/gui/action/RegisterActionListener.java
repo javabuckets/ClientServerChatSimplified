@@ -1,11 +1,13 @@
 package com.thom.cc.gui.action;
 
 import com.thom.cc.ChatClient;
+import com.thom.cc.account.Account;
 import com.thom.cc.gui.GUIPopUp;
 import com.thom.cc.packet.RegisterPacket;
 import com.thom.cc.server.ResponseThread;
 import com.thom.cc.utility.PasswordEncrypter;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.PrintWriter;
@@ -15,14 +17,17 @@ import java.security.NoSuchAlgorithmException;
 public class RegisterActionListener implements ActionListener {
     private PrintWriter pw;
     private RegisterPacket registerPacket;
+    private JTextField username, password;
 
-    public RegisterActionListener(RegisterPacket registerPacket) {
-        this.registerPacket = registerPacket;
+    public RegisterActionListener(JTextField username, JTextField password) {
+        this.username = username;
+        this.password = password;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         try {
+            this.registerPacket = new RegisterPacket(new Account(username.getText(), password.getText()));
             pw = new PrintWriter(ChatClient.SERVER_SOCKET.getOutputStream());
             sendRegisterPacket();
             GUIPopUp popUp = new GUIPopUp("Account Registered.", 1500);
@@ -46,6 +51,7 @@ public class RegisterActionListener implements ActionListener {
 
         String data = id + user + pass + "#END";
 
+        System.out.println(data);
         pw.println(data);
     }
 }

@@ -1,11 +1,8 @@
 package com.thom.cc.gui;
 
-import com.thom.cc.account.Account;
 import com.thom.cc.gui.action.LoginActionListener;
 import com.thom.cc.gui.action.RegisterActionListener;
 import com.thom.cc.gui.util.GuiUtil;
-import com.thom.cc.packet.LoginPacket;
-import com.thom.cc.packet.RegisterPacket;
 import com.thom.cc.server.ConnectionHandler;
 import com.thom.cc.utility.ColorReference;
 import com.thom.cc.utility.FontReference;
@@ -94,8 +91,8 @@ public class GUIChatClient extends GUIScreen {
         username = GuiUtil.addTextField(panel, "", new Point(WIDTH / 2 - 380, HEIGHT / 2 - 50), 300, 30, FontReference.defaultFont);
         password = GuiUtil.addPasswordField(panel, new Point(WIDTH / 2 - 380, HEIGHT / 2 + 50), 300, 30, FontReference.defaultFont);
 
-        login = GuiUtil.addButton(panel, "Login", new Point(WIDTH / 2 + 70, HEIGHT / 2 - 55), 175, 40, new LoginActionListener(new LoginPacket(new Account(username.getText(), password.getText()))));
-        register = GuiUtil.addButton(panel, "Register", new Point(WIDTH / 2 + 70, HEIGHT / 2 + 45), 175, 40, new RegisterActionListener(new RegisterPacket(new Account(username.getText(), password.getText()))));
+        login = GuiUtil.addButton(panel, "Login", new Point(WIDTH / 2 + 70, HEIGHT / 2 - 55), 175, 40, new LoginActionListener(username, password));
+        register = GuiUtil.addButton(panel, "Register", new Point(WIDTH / 2 + 70, HEIGHT / 2 + 45), 175, 40, new RegisterActionListener(username, password));
     }
 
     public static void drawHomepage() {
